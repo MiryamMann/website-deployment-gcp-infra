@@ -1,68 +1,96 @@
-# GCP Website Deployment using Infrastructure Manager (YAML-based IaC)
+# 🚀 GCP Website Deployment using Terraform
 
-This project defines the infrastructure required to deploy a website to Google Cloud Platform (GCP) using [Google Cloud Infrastructure Manager (Infra Manager)](https://cloud.google.com/infrastructure-manager), based on YAML configuration files.
+This project defines the infrastructure required to deploy a website to Google Cloud Platform (GCP) using [Terraform](https://www.terraform.io/), following the Infrastructure as Code (IaC) approach.
+
+---
 
 ## 🌐 Overview
 
-The repository contains Infrastructure as Code (IaC) templates written in YAML for managing and deploying cloud resources on GCP using Google Cloud's native Infra Manager.
+This repository contains Terraform templates to provision and manage cloud infrastructure on GCP.  
+It includes setting up a Compute Engine instance, startup scripts, firewall rules, and more.
+
+---
 
 ## 🛠️ Technologies Used
 
 - **Google Cloud Platform (GCP)**
-- **Infrastructure Manager (Infra Manager)**
-- **YAML-based configuration**
-- **Cloud DNS**
-- **HTTPS Load Balancer**
-- **Static website hosting**
+- **Terraform**
+- **Compute Engine**
+- **Cloud Firewall**
+- **Startup Scripts**
+- **Infrastructure as Code (IaC)**
+
+---
 
 ## 📁 Project Structure
 
-. ├── main.yaml # Root deployment configuration ├── network.yaml # VPC and subnets ├── dns.yaml # DNS configuration ├── loadbalancer.yaml # Load balancer and backend setup ├── ssl.yaml # SSL certificate definitions └── README.md
+├── main.tf # Core infrastructure configuration
+├── variables.tf # Variable definitions
+├── terraform.tfvars # Variable values
+├── Outputs.tf # Outputs to display after deployment
+├── startup.sh # Startup script for instance initialization
+├── terraform.tfstate # Terraform state file (generated)
+├── terraform.tfstate.backup
+├── README.md
 
-markdown
+yaml
 Copy
 Edit
+
+---
 
 ## 🚀 Getting Started
 
-### Prerequisites
+### ✅ Prerequisites
 
 - A GCP project with billing enabled
-- [gcloud CLI](https://cloud.google.com/sdk/docs/install) installed and authenticated
-- `gcloud` alpha APIs enabled (for Infra Manager)
-- Enabled APIs: Deployment Manager V2 or Infrastructure Manager (depending on region)
+- [Terraform installed](https://developer.hashicorp.com/terraform/downloads)
+- `gcloud` CLI installed and authenticated (`gcloud init`)
+- Enabled APIs:
+  - `compute.googleapis.com`
+  - `cloudresourcemanager.googleapis.com`
 
-### Steps
+---
 
-1. Enable necessary services:
+### ⚙️ Deployment Steps
+
+1. Clone the repository and navigate into the directory:
    ```bash
-   gcloud services enable gcdn-api cloudresourcemanager.googleapis.com
-Deploy infrastructure:
+   git clone https://github.com/MiryamMann/website-deployment-gcp-infra.git
+   cd website-deployment-gcp-infra
+Initialize Terraform:
 
 bash
 Copy
 Edit
-gcloud deployment-manager deployments create website-infra --config main.yaml
-Or, if using Infra Manager (YAML templates with resource hierarchy):
+terraform init
+Preview the execution plan:
 
 bash
 Copy
 Edit
-gcloud beta resource-manager deployments apply --project=YOUR_PROJECT_ID --config=main.yaml
-Verify resources in the GCP Console.
+terraform plan
+Apply the deployment:
+
+bash
+Copy
+Edit
+terraform apply
+Confirm creation and monitor resources in the GCP Console.
 
 📌 Notes
-Templates are modular and can be reused across environments.
+The infrastructure is modular and adjustable via terraform.tfvars.
 
-This project follows the Infrastructure as Code approach natively supported by Google Cloud.
+Startup script (startup.sh) can be modified to install software or serve content.
 
-Consider integrating with CI/CD pipelines (e.g., GitHub Actions, Cloud Build).
+Can be extended to include a Load Balancer, Cloud DNS, HTTPS, etc.
+
+Ideal for learning Terraform and GCP provisioning basics.
 
 📄 License
 MIT License
 
-Feel free to contribute or open issues if you'd like to improve or expand this deployment.
+Feel free to contribute, open issues, or suggest improvements!
 
-yaml
 Copy
 Edit
